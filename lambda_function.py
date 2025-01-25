@@ -37,7 +37,7 @@ def load_html(name):
     with open(name, 'r', encoding='utf-8') as arquivo:
         conteudo = arquivo.read()
 
-    with open("background-lanchonete.jpeg", "rb") as image_file:
+    with open("background_videoframe.jpeg", "rb") as image_file:
         base64_string = base64.b64encode(image_file.read()).decode('utf-8')
 
     conteudo = conteudo.replace('{{ BACKGROUND }}', 'data:image/png;base64,'+base64_string)
@@ -73,6 +73,8 @@ def handle_logged(event):
         )
 
         nome_usuario = next((item['Value'] for item in response_user['UserAttributes'] if item['Name'] == 'name'), None)
+
+        print('nome_usuario',nome_usuario)
 
         conteudo = conteudo.replace('{{ Fulano }}', nome_usuario)
         conteudo = conteudo.replace('{{ Token }}',response['AuthenticationResult']['IdToken'])
@@ -112,12 +114,9 @@ def handle_registration(event):
         print('Response Cognito')
         print(response)
 
-        for int i in range(2000):
-            continue
-
         resp_confirm = client.admin_confirm_sign_up(
             UserPoolId=USER_POOL_ID,
-            Username=payload.get('cpf')
+            Username=payload.get('usuario')
         )
 
         print('Confirmação Cognito')
