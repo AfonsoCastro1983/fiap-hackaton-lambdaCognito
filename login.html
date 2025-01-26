@@ -110,11 +110,6 @@
         }
 
         function login() {
-            cpf = document.getElementById('username').value;
-            if (!validarCPF(cpf)) {
-                alert('CPF Inválido');
-                return;
-            }
             redirecionarPost(document.getElementById('username').value,document.getElementById('password').value);
         }
     </script>
